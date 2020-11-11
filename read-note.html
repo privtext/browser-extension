@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1">
+  <!-- <link rel="./img/apple-touch-icon" href="apple-touch-icon.png"> -->
+<!-- <link href="./img/favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+
+
+<link rel="shortcut icon" type="image/png" href="./img/logo.png" />
+
+
+  
+  <title>PrivText.com - Secure Read Note</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  
+  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
+
+  <style type="text/css">
+    body {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      margin: 0;
+      padding: 5px 8px;
+    }
+  </style>
+
+  <link rel="stylesheet" href="./css/normalize.css">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="./css/main.css">
+  
+  <script type="text/javascript" src="./js/vendor/jquery-1.11.3.min.js"></script>
+  <script src="./js/vendor/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/sha.js"></script>
+  <script type="text/javascript" src="./js/aes.js"></script>
+  <script type="text/javascript" src="./js/libs.js"></script>
+    
+</head>
+
+<body class="page-note ">
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <!-- <div class="underBg "></div> -->
+
+        <div class="wrapLeftSettings ">
+            <div class="blockLeftSettings">
+                <a href="" class="btnCloseSettings js-hideSettings">&times;</a>
+                <div class="nameBlock">Settings</div>
+                <form action="">
+                  
+                    <div class="fieldGroup liveTime">
+                      <select id="timelive" class="js-itemLeftSettings">
+                          <option value="0">after being read</option>
+                          <option value="3600">1 hour from now</option>
+                          <option value="86400">1 day from now</option>
+                          <option value="259200">3 days from now</option>
+                          <option value="604800">1 week from now</option>
+                          <option value="2592000">1 month from now</option>
+                      </select>
+                    </div>
+                    
+                    <div class="hiddenDescriptionField">Note self-destructs</div>
+                    <div class="fieldGroup PassDecode">
+                        <input id="encpasswd" type="text" class="js-itemLeftSettings" placeholder="Password encryption">
+                    </div>
+                    <div class="hiddenDescriptionField">Enter a custom password to encrypt the note</div>
+                    <div class="fieldGroup emailMessage">
+                        <input type="text" id="noticemail" class="js-itemLeftSettings" placeholder="Notification e-mail">
+                    </div>
+                    <div class="hiddenDescriptionField">E-mail to notify when note is destroyed</div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="wrapperOutside">
+            <div class="wrapperInside">
+                <header class="mainHeader">
+                    <div class="underBg "></div>
+                    <div class="container">
+                        <a href="#" class="topTopLinkSettings js-showSettings"></a>
+                        <a href="#" class="btnOpenMobileMenu js-showMobileMenu"></a>
+                        <nav>
+                            <a href="#" class="btnCloseNav js-hideMobileMenu">&times;</a>
+                        </nav>
+                        <a href="create-note.html" class="logo">Privtext.<span>com</span></a>
+                    </div>
+                </header>
+                
+  <main>
+    <div class="container result-hide">
+      <div class="presented-note" >
+        <p class="lead">
+          <span style="display: none;" id="timelive1">The note will self-destruct in <span id="note_delete_minutes">XX</span> minutes and <span id="note_delete_seconds">XX</span> seconds.</span>
+          <span style="display: none;" id="timelive0">The note has been self-destructed.</span>
+        </p>
+        <form action="">
+            <div class="wrapContentForm">
+              <div class="titleForm"><a href="" data-clipboard-target="privdata" class="btnCopy js-copyToBuffer">Copy note</a> <!--  Select note --></div>
+              <p style="margin: 0;">
+                  <textarea name="privdata" readonly="readonly" id="privdata" cols="30" rows="10" class="form-control" placeholder="Result your message here..."></textarea>
+              </p>
+              <div class="managerForm">
+                  <div class="btnsForm">
+                      <a href="create-note.html" class="btn btnGreen btnNew"><span>+</span> New</a>
+                      <input type="hidden" id="proof" value="">
+                  </div>
+                  <a href="" style="display: none;" class="button-delete-message-now btn btnGreen">Delete Now</a> 
+              </div>
+            </div>
+        </form>
+        <p class="result-link">Timer: <span id="timer"></span></p>
+      </div>
+      
+      <div class="empty-note" style="display: none;">
+        <h1>Note destroyed</h1><br />
+        The note with id <strong class="readedNoteID"></strong> was read and destroyed.<br />
+       <br />
+       If you haven't read this note it means someone else has. If you read it but forgot to write it down, then you need to ask whoever sent it to re-send it.
+        <div class="btnsForm">
+          <br />
+          <a href="create-note.html" class="btn btnGreen">Create Note</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+    <div class="popupWrapper js-popupConfirm">
+    <div class="contentPopup">
+      <a class="btnHidePopup js-closePopup">&times;</a>
+      <div class="requestPopup">
+        <p>Would you like to read the Note now or later?</p>
+      </div>
+      <div class="managePopup">
+        <a href="#" class="btn left btnGreen js-confirmNowPopup">Now</a>
+        <a href="#" class="btn right js-closePopup">Later</a>
+      </div>
+    </div>
+  </div>
+
+    <div class="popupWrapper js-popupPrompt">
+    <div class="contentPopup">
+      <div class="loadingPopup"></div>
+      <a class="btnHidePopup js-closePopup">&times;</a>
+      <div class="requestPopup">
+        <p>Enter your secret key, please!</p>
+      </div>
+      <form action="">
+        <div class="fieldItemPopup">
+          <input type="password" name="note_private_password" placeholder="Your password">
+        </div>
+        <div class="describeError">It is wrong password</div>
+        <div class="managePopup">
+          <a href="#" class="btn left btnGreen js-enterPopup">Ok</a>
+          <a href="#" class="btn right js-closePopup">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+      </div>
+  </div>
+  <footer class="mainFooter">
+      <div class="container">
+          <nav>
+              <ul>
+                  <li><a target="_blank" href="https://privtext.com/privacy.html">Privacy</a></li>
+                  <li><a target="_blank" href="https://privtext.com/about.html">About us</a></li>
+              </ul>
+          </nav>
+          <div class="copyright">privtext.com 2015 &copy;</div>
+      </div>
+  </footer>
+
+    <div class="popupWrapper js-popupQRCode">
+    <div class="contentPopup">
+      <a class="btnHidePopup js-closePopup">&times;</a>
+      <div class="requestPopup">
+        <p style="padding-bottom: 15px;">Link like QR code</p>
+        <div class="qrcode-canvas">
+          
+        </div>
+      </div>
+      <div class="managePopup">
+        <a href="#" class="btn js-closePopup">Close</a>
+      </div>
+    </div>
+  </div>
+
+    <div class="popupWrapper js-popupErrorMaxSize">
+    <div class="contentPopup">
+      <a class="btnHidePopup js-closePopup">&times;</a>
+      <div class="requestPopup">
+        <p style="color: #a00;">Your note has size more than 1Mb after encryption.</p>
+        <p style="color: #a00;">Use smaller note, please.</p>
+      </div>
+      <div class="managePopup">
+        <a href="#" class="btn center btnGreen js-closePopup">Understood</a>
+      </div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="./js/plugins.js"></script>
+  <script type="text/javascript" src="./js/ZeroClipboard.min.js"></script>
+  <script type="text/javascript" src="./js/jquery-qrcode-0.17.0.min.js"></script>
+  
+  <script type="text/javascript" src="./js/main.js"></script>
+
+  <script type="text/javascript" src="./js/extension-lib.js"></script>
+  <script type="text/javascript" src="./js/extension-default.js"></script>
+  <script type="text/javascript" src="./js/read-js.js"></script>
+  
+</body>
+</html>
+
+
+  

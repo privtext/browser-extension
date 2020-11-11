@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Privtext Util</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style type="text/css">
+    html,
+    body {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      margin: 0;
+      padding: 5px 8px;
+    }
+
+    h1 {
+      font-family: 'Menlo', monospace;
+      font-size: 22px;
+      font-weight: 400;
+      margin: 0;
+      color: #2f5876;
+    }
+
+    .block-header {
+      align-items: center;
+      border-bottom: 0.5px solid #dadada;
+      padding-bottom: 10px;
+      margin-bottom: 5px;
+    }
+    .block-content {
+      margin-top: 5px;
+    }
+
+    .block-content .choose-action{
+      align-items: center;
+      text-align: center;
+    }
+
+    .choose-action > button{
+      margin: 0 5px;
+      display: inline-block;
+    }
+
+    #note_url_form_block{
+      display: none;
+    }
+
+    #note_url_form .form-bottom-group{
+      text-align: right;
+    }
+
+    #blockedInputs{
+      border-top: 0.5px solid #dadada;
+      margin-top: 15px;
+      text-align: right;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="block-header">
+    <h1 class="logo">
+      <img class="logo-icon" src="./img/biglogo.png">
+    </h1>
+  </div>
+
+  <div class="block-content">
+
+    <div id="nonBlocked" style="display: none;">
+      <div class="choose-action">
+        <button id="open_createnote_tab" class="btn btn-success">Create Note</a>
+        <button id="open_note_url_form" type="button" class="btn btn-info">Read Note</button>
+      </div>
+
+      <div id="note_url_form_block">
+        <form action="read-note.html" method="GET" id="note_url_form">
+          <div class="form-group">
+            <label for="noteurl">Note</label>
+            <input type="text" class="form-control" id="read_noteurl" name="noteurl" aria-describedby="noteurlHelp" placeholder="Enter privtext url">
+            <small id="noteurl" class="form-text text-muted">Full url or Note ID for your secure note.</small>
+          </div>
+          <div class="form-bottom-group">
+            <button type="submit" class="btn btn-primary">Read</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="blocked" style="display: none;">
+      <p>An Extension is blocked for this domain.<br />You can change it in <a href="settings.html" id="open_settings">settings</a>.</p>
+    </div>
+
+    <div id="blockedInputs" style="display: none;">
+      <p>You have some ignored text fields. Click next button for cancel these exceptions: <button id="buttonClearAllIgnoredForHost" type="button" class="btn btn-warning">Cancel it</button></p>
+    </div>
+    
+  </div>
+  
+  <script type="text/javascript" src="./js/extension-lib.js"></script>
+  <script type="text/javascript" src="./js/popup.js"></script>
+
+</body>
+</html>
+
